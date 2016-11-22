@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Imaginality</title>
+    <link href="styles/zstrap.css" rel="stylesheet" />
+    <script src="scripts/tools.js" type="text/javascript"></script>
+    <script src="scripts/toolboxhelper.js" type="text/javascript"></script>
+    <script src="scripts/toolbox.js" type="text/javascript"></script>
+    <script src="scripts/index.js" type="text/javascript"></script>
+</head>
+
+<body onload="onLoaded();" oncontextmenu="return false">
+    <!-- Navigation menu -->
+    <nav class="navbar navbar-fixed navbar-color navbar-top">
+        <a class="navbar-title" href="#">Imaginality</a>
+        <div id="main-nav" class="drawer">
+            <ul class="nav-grouper">
+                <li id="overflow-icon" class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);" onclick="toggleOverflow()">☰</a>
+                </li>
+            </ul>
+            <ul class="nav-grouper">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">New</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="saveImage();">Save</a>
+                </li>
+            </ul>
+            <ul class="nav-grouper-right">
+                <li class="nav-item">
+                    <a class="nav-link" href="views/help.html">Help</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <div class="container">
+        <div id="toolbox-main" class="sidebar-fixed toolbox">
+            <div id="toolbox-tools"></div>
+            <div id="toolbox-styles" style="clear: both;"></div>
+        </div>
+        <div class="sidebar-content">
+            <div id="canvas-wrapper">
+                <canvas id="saving-canvas"></canvas>
+                <canvas id="drawing-canvas"></canvas>
+            </div>
+            <div id="canvas-specs">
+                <span>
+                    <span id="canvas-pos-x">x:</span><span id="canvas-pos-y">y:</span>
+                </span>
+                <span style="float: right;">
+                    <input type="range" id="canvas-zoom-range" min="10" max="800" value="100" onchange="sliderchanged();"><span><input type="text" id="canvas-zoom-level" value="100" onchange="changeZoom();">%</span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var drawerOpen = false;
+
+        function toggleOverflow() {
+            var drawer = document.getElementById("main-nav");
+            if (drawerOpen) {
+                drawer.classList.remove("opened");
+                drawerOpen = false;
+            } else {
+                drawer.classList.add("opened");
+                drawerOpen = true;
+            }
+        }
+    </script>
+</body>
+
+</html>

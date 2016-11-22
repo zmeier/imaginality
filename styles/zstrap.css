@@ -1,0 +1,406 @@
+/* Primary elements */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #edf3fc;
+}
+
+
+/* Navigation bar */
+
+.navbar {
+    padding: 4px;
+    width: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: #eff2f7;
+    color: darkgray;
+    height: 50px;
+    z-index: 100;
+    -webkit-box-shadow: -2px 2px 10px 0px gray;
+    -moz-box-shadow: -2px 2px 10px 0px gray;
+    box-shadow: -2px 2px 10px 0px gray;
+}
+
+.navbar-fixed {
+    position: fixed;
+}
+
+.navbar-top {
+    top: 0;
+}
+
+.navbar-dark {
+    background-color: #37383a;
+    color: lightgray;
+}
+
+.navbar-color {
+    background-color: #425BF4;
+    color: #f4424e;
+}
+
+.navbar-title {
+    font-size: 1.4em;
+    text-decoration: none;
+    display: block;
+    float: left;
+    padding-left: 16px;
+    padding-right: 16px;
+    color: #4b86e5;
+    line-height: 50px;
+}
+
+.navbar-dark .navbar-title,
+.navbar-color .navbar-title {
+    color: white;
+}
+
+.nav-grouper {
+    list-style: none;
+    display: block;
+    float: left;
+    padding-left: 0;
+    line-height: 50px;
+    margin: 0;
+}
+
+.nav-grouper-right {
+    list-style: none;
+    display: block;
+    float: right;
+    padding-left: 0;
+    padding-right: 16px;
+    line-height: 50px;
+    margin: 0;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #99baef;
+}
+
+.nav-link:hover {
+    color: #7a94bf;
+}
+
+.navbar-dark .nav-link {
+    color: lightgray;
+}
+
+.navbar-dark .nav-link:hover {
+    color: gray;
+}
+
+.navbar-color .nav-link {
+    color: #faeefc;
+}
+
+.navbar-color .nav-link:hover {
+    color: lightblue;
+}
+
+.nav-item {
+    display: inline-block;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+
+/* Container Layout */
+
+.container {
+    margin-top: 60px;
+    padding: 16px;
+    display: block;
+}
+
+
+/* Column layout out of 8 */
+
+.col-1 {
+    display: block;
+    width: 12.5%;
+    float: left;
+}
+
+.col-2 {
+    display: block;
+    width: 25%;
+    float: left;
+}
+
+.col-4 {
+    display: block;
+    width: 50%;
+    float: left;
+}
+
+.col-6 {
+    display: block;
+    width: 75%;
+    float: left;
+}
+
+.col-7 {
+    display: block;
+    width: 87.5%;
+    float: left;
+}
+
+
+/* Sidebar */
+
+.sidebar-fixed {
+    position: fixed;
+    padding-top: 16px;
+    top: 60px;
+    bottom: 0;
+    display: block;
+    width: 100px;
+    float: left;
+    overflow: scroll;
+    border-right: solid 1px lightgray;
+}
+
+.sidebar-content {
+    position: fixed;
+    margin: 16px;
+    top: 60px;
+    bottom: 0;
+    left: 120px;
+    right: 0;
+    overflow: scroll;
+}
+
+
+/* Overflow menu */
+
+#overflow-icon {
+    font-size: 1.4em;
+    display: none;
+}
+
+#main-nav {
+    z-index: 1000;
+    -webkit-transition: .7s;
+    -webkit-transition-property: all;
+    transition: .7s;
+    transition-property: width, background-color, box-shadow;
+}
+
+@media screen and (max-width:680px) {
+    #main-nav .nav-item {
+        display: none;
+    }
+    #main-nav #overflow-icon {
+        display: inline;
+    }
+    #main-nav {
+        padding-top: 4px;
+        padding-left: 16px;
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 40px;
+    }
+    #main-nav .nav-item {
+        height: 25px;
+    }
+}
+
+@media screen and (max-width:680px) {
+    #main-nav.opened .nav-item {
+        display: block;
+        padding-bottom: 4px;
+    }
+    #main-nav.opened .nav-grouper,
+    #main-nav.opened .nav-grouper-right {
+        display: block;
+        float: none;
+        height: auto;
+    }
+    #main-nav.opened .nav-grouper {
+        padding-bottom: 16px;
+    }
+    #main-nav.opened {
+        padding-top: 4px;
+        padding-left: 16px;
+        background-color: lightgray;
+        position: fixed;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 200px;
+        border-left: solid 1px lightgray;
+    }
+    .navbar-dark #main-nav.opened {
+        background-color: lightgray;
+    }
+    .navbar-color #main-nav.opened {
+        background-color: white;
+    }
+    .navbar-dark #main-nav.opened .nav-link {
+        color: black;
+    }
+    .navbar-dark #main-nav.opened .nav-link:hover {
+        color: gray;
+    }
+    .navbar-color #main-nav.opened .nav-link {
+        color: #425BF4;
+    }
+    .navbar-color #main-nav.opened .nav-link:hover {
+        color: #98a2e2;
+    }
+}
+
+
+/* Toolbox */
+
+#toolbox-styles {
+    padding-top: 16px;
+}
+
+.toolbox-button {
+    display: block;
+    float: left;
+    margin: 4px;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border: solid 1px black;
+    border-radius: 4px;
+    padding: 0;
+    font-size: 1.2em;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.toolbox-button svg {
+    margin-top: 4px;
+}
+
+.toolbox-button:hover {
+    border: solid 2px darkblue;
+}
+
+.toolbox-button:focus {
+    outline: none;
+    border: solid 2px darkblue;
+}
+
+.selected {
+    border: solid 2px cornflowerblue;
+}
+
+
+/* Drawing canvas */
+
+#drawing-canvas {
+    background-color: white;
+    -webkit-box-shadow: 2px 2px 10px 0px gray;
+    -moz-box-shadow: 2px 2px 10px 0px gray;
+    box-shadow: 2px 2px 10px 0px gray;
+    margin: 4px;
+    cursor: default;
+}
+
+#saving-canvas {
+    display: none;
+}
+
+#canvas-pos-x {
+    padding-right: 8px;
+}
+
+#canvas-specs {
+    font-size: 14px;
+}
+
+#canvas-zoom-level {
+    padding-left: 4px;
+    clear: both;
+    vertical-align: middle;
+    background-color: transparent;
+    border: none;
+    width: 40px;
+    text-align: right;
+    font-size: 14px;
+}
+
+#canvas-zoom-level:focus {
+    outline: none;
+}
+
+#canvas-zoom-range {
+    vertical-align: middle;
+}
+
+#canvas-wrapper {
+    width: 100%;
+    height: 95%;
+    margin: 0;
+    overflow: scroll;
+}
+
+.canvas-textinput {
+    position: absolute;
+    resize: both;
+    overflow: auto;
+    min-width: 150px;
+    border: dashed black 1px;
+}
+
+.canvas-textinput:focus {
+    outline: none;
+}
+
+
+/* Dropdown Button */
+
+.dropdown-menu {
+    background-color: white;
+    position: absolute;
+    min-width: 50px;
+    -webkit-box-shadow: 2px 4px 10px 0px gray;
+    -moz-box-shadow: 2px 4px 10px 0px gray;
+    box-shadow: 2px 4px 10px 0px gray;
+}
+
+.dropdown-button {
+    display: block;
+    width: 100%;
+}
+
+.dropdown-button:hover {
+    background-color: lightgray;
+}
+
+.dropdown-button:focus {
+    background-color: lightgray;
+    outline: none;
+}
+
+.dropdownbutton-grouper {
+    width: 30px;
+    height: 30px;
+}
+
+.card {
+    -webkit-box-shadow: 2px 2px 10px 0px gray;
+    -moz-box-shadow: 2px 2px 10px 0px gray;
+    box-shadow: 2px 2px 10px 0px gray;
+    border-radius: 4px;
+}
+
+.help-card {
+    margin: auto;
+    padding: 16px;
+    background-color: white;
+    max-width: 800px;
+}
