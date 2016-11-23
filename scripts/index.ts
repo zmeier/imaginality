@@ -36,5 +36,5 @@ function changeZoom() {
 }
 
 function saveImage() {
-    toolbox.saveImage;
+    toolbox.saveImage();
 }

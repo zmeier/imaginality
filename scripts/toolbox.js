@@ -125,7 +125,7 @@ var Toolbox = (function () {
         }, false);
     };
     Toolbox.prototype.toolboxButtonClicked = function (toolIdx) {
-        if (this.__selectedToolIdx != null) {
+        if (this.__selectedToolIdx !== null) {
             this.__tools[this.__selectedToolIdx].stopDrawing(this.__context, this.__savingContext);
             var prevbutton = document.getElementById("toolboxbutton_" + this.__selectedToolIdx);
             prevbutton.className = "toolbox-button";
@@ -156,6 +156,7 @@ var Toolbox = (function () {
             this.__context.strokeStyle = colorVal;
             document.getElementById("toolboxStylebutton_strokeColor").innerHTML = Stroke.getStrokeColorSVG(colorVal);
         }
+        this.updateContextWithStyles(this.__context);
     };
     Toolbox.prototype.changeFillColor = function () {
         var inputElem = document.getElementById("toolboxStylebutton_fillColor_input");
@@ -163,22 +164,23 @@ var Toolbox = (function () {
         if (colorVal) {
             this.__styleSettings.fillColor.color = colorVal;
             this.__context.fillStyle = colorVal;
-            console.log(colorVal);
             document.getElementById("toolboxStylebutton_fillColor").innerHTML = Fill.getFillColorSVG(colorVal);
         }
+        this.updateContextWithStyles(this.__context);
     };
     Toolbox.prototype.changeStroke = function (stroke, box) {
         box.__styleSettings.stroke.weight = stroke;
         ToolboxHelper.closeMenu();
         var toolbox = document.getElementById("toolboxStylebutton_strokeWeight");
         toolbox.innerHTML = '<svg height="20" width="20"><line x1="0" y1="10" x2="20" y2="10" style="stroke:black;stroke-width:' + stroke + '" /></svg>';
+        this.updateContextWithStyles(this.__context);
     };
     Toolbox.prototype.changePixelWeight = function (pixels, box) {
         box.__styleSettings.pixelWeight = pixels;
         ToolboxHelper.closeMenu();
         var toolbox = document.getElementById("toolboxStylebutton_pixelWeight");
-        console.log(pixels);
         toolbox.innerHTML = '<svg height="20" width="20"><circle cx="10" cy="10" r="' + pixels + '" style="fill:black;" /></svg>';
+        this.updateContextWithStyles(this.__context);
     };
     Toolbox.prototype.changeFont = function (font, box) {
         box.__styleSettings.font.name = font;
@@ -186,6 +188,7 @@ var Toolbox = (function () {
         var toolbox = document.getElementById("toolboxStylebutton_font");
         toolbox.style.font = "0.75em " + font;
         box.__context.font = box.__styleSettings.font.size + "px " + box.__styleSettings.font.name;
+        this.updateContextWithStyles(this.__context);
     };
     Toolbox.prototype.changeFontSize = function (fontSize, box) {
         box.__styleSettings.font.size = +fontSize;
@@ -193,6 +196,7 @@ var Toolbox = (function () {
         var toolbox = document.getElementById("toolboxStylebutton_fontSize");
         toolbox.innerText = fontSize;
         box.__context.font = box.__styleSettings.font.size + "px " + box.__styleSettings.font.name;
+        this.updateContextWithStyles(this.__context);
     };
     Toolbox.__menuDiv = null;
     return Toolbox;

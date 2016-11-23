@@ -29,6 +29,6 @@ function changeZoom() {
     }
 }
 function saveImage() {
-    toolbox.saveImage;
+    toolbox.saveImage();
 }
 //# sourceMappingURL=index.js.map

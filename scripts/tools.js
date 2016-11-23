@@ -78,6 +78,10 @@ var Cursor = (function (_super) {
         }
         _super.prototype.startDrawing.call(this, mousePosition, context);
     };
+    Cursor.prototype.stopDrawing = function (context, savingContext) {
+        clearCanvas(context);
+        _super.prototype.stopDrawing.call(this, context, savingContext);
+    };
     Cursor.prototype.mouseDown = function (mousePosition, context, savingContext) {
         if (this.__selectedRect && this.clickedInRect(mousePosition, this.__selectedRect)) {
             this.__isDragging = true;

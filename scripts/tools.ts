@@ -97,6 +97,11 @@ class Cursor extends Tool {
         super.startDrawing(mousePosition, context);
     }
 
+    public stopDrawing(context: CanvasRenderingContext2D, savingContext: CanvasRenderingContext2D): void {
+        clearCanvas(context);
+        super.stopDrawing(context, savingContext);
+    }
+
     // Event handler implementations
     public mouseDown(mousePosition: ZPosition, context: CanvasRenderingContext2D, savingContext: CanvasRenderingContext2D): void {
         if (this.__selectedRect && this.clickedInRect(mousePosition, this.__selectedRect)) {
