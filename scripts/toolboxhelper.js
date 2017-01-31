@@ -16,7 +16,7 @@ var ToolboxHelper = (function () {
         }
         if (callback) {
             styleButton.addEventListener("click", function (event) {
-                callback(event, toolbox);
+                callback(event, toolbox, id);
             }, false);
         }
         return styleButton;
@@ -52,7 +52,7 @@ var ToolboxHelper = (function () {
             ToolboxHelper.__menuDiv = null;
         }
     };
-    ToolboxHelper.createStrokeMenu = function (evt, box) {
+    ToolboxHelper.createStrokeMenu = function (evt, box, id) {
         var menu = [{
                 html: '<svg height="20" width="50"><line x1="2" y1="10" x2="48" y2="10" style="stroke:black;stroke-width:2" /></svg>',
                 class: "dropdown-button",
@@ -89,10 +89,10 @@ var ToolboxHelper = (function () {
                 }
             },
         ];
-        var rect = document.getElementById("toolboxStylebutton_strokeWeight").getBoundingClientRect();
+        var rect = document.getElementById(id).getBoundingClientRect();
         ToolboxHelper.createMenu(menu, rect.left, rect.bottom);
     };
-    ToolboxHelper.createPixelWeightMenu = function (evt, box) {
+    ToolboxHelper.createPixelWeightMenu = function (evt, box, id) {
         var menu = [{
                 html: '<svg height="20" width="20"><circle cx="10" cy="10" r="1" style="fill:black;" /></svg>',
                 class: "dropdown-button",
@@ -136,10 +136,10 @@ var ToolboxHelper = (function () {
                 }
             },
         ];
-        var rect = document.getElementById("toolboxStylebutton_pixelWeight").getBoundingClientRect();
+        var rect = document.getElementById(id).getBoundingClientRect();
         ToolboxHelper.createMenu(menu, rect.left, rect.bottom);
     };
-    ToolboxHelper.createFontMenu = function (evt, box) {
+    ToolboxHelper.createFontMenu = function (evt, box, id) {
         var menu = [{
                 html: '<div style="font-family:Arial">Arial</div>',
                 class: "dropdown-button",
@@ -183,10 +183,10 @@ var ToolboxHelper = (function () {
                 }
             },
         ];
-        var rect = document.getElementById("toolboxStylebutton_font").getBoundingClientRect();
+        var rect = document.getElementById(id).getBoundingClientRect();
         ToolboxHelper.createMenu(menu, rect.left, rect.bottom);
     };
-    ToolboxHelper.createFontSizeMenu = function (evt, box) {
+    ToolboxHelper.createFontSizeMenu = function (evt, box, id) {
         var menu = [{
                 html: '<div style="font-size:12px">12</div>',
                 class: "dropdown-button",
@@ -244,7 +244,7 @@ var ToolboxHelper = (function () {
                 }
             },
         ];
-        var rect = document.getElementById("toolboxStylebutton_fontSize").getBoundingClientRect();
+        var rect = document.getElementById(id).getBoundingClientRect();
         ToolboxHelper.createMenu(menu, rect.left, rect.bottom);
     };
     return ToolboxHelper;

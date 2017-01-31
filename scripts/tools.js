@@ -46,7 +46,10 @@ var Tool = (function () {
         }
     };
     Tool.prototype.stopDrawing = function (context, savingContext) {
-        this.copyContextToSave(context, savingContext);
+        if (context && savingContext) {
+            this.copyContextToSave(context, savingContext);
+            context.restore();
+        }
         this.__isDrawing = false;
         this.__lastDrawingPosition = null;
     };
@@ -62,8 +65,10 @@ var Tool = (function () {
 var Cursor = (function (_super) {
     __extends(Cursor, _super);
     function Cursor(styleSettings) {
+        var _this = this;
         var svg = '<svg width="20" height="20"><path d="M5 2 V 16 L 8 12 L 11 19 L 13 18 L 10 11 L 15.5 11.5 L 5 2" fill="transparent" stroke="black"/></svg>';
-        _super.call(this, "cursor", svg, "Mouse", styleSettings);
+        _this = _super.call(this, "cursor", svg, "Mouse", styleSettings) || this;
+        return _this;
     }
     Cursor.prototype.toolSelected = function () {
         _super.prototype.toolSelected.call(this);
@@ -80,7 +85,7 @@ var Cursor = (function (_super) {
     };
     Cursor.prototype.stopDrawing = function (context, savingContext) {
         clearCanvas(context);
-        _super.prototype.stopDrawing.call(this, context, savingContext);
+        _super.prototype.stopDrawing.call(this, savingContext, context);
     };
     Cursor.prototype.mouseDown = function (mousePosition, context, savingContext) {
         if (this.__selectedRect && this.clickedInRect(mousePosition, this.__selectedRect)) {
@@ -107,13 +112,13 @@ var Cursor = (function (_super) {
             this.__selectedRect.pos.x += (mousePosition.x - this.__lastDrawingPosition.x);
             this.__selectedRect.pos.y += (mousePosition.y - this.__lastDrawingPosition.y);
             context.putImageData(this.__dragData, this.__selectedRect.pos.x, this.__selectedRect.pos.y);
+            this.drawRectangle(this.__selectedRect.pos.x, this.__selectedRect.pos.y, this.__selectedRect.width, this.__selectedRect.height, context);
             this.__lastDrawingPosition = mousePosition;
         }
         else if (this.__isDrawing) {
             clearCanvas(context);
             context.putImageData(this.__tempImageData, 0, 0);
-            context.beginPath();
-            context.rect(this.__lastDrawingPosition.x, this.__lastDrawingPosition.y, mousePosition.x - this.__lastDrawingPosition.x, mousePosition.y - this.__lastDrawingPosition.y);
+            this.drawRectangle(this.__lastDrawingPosition.x, this.__lastDrawingPosition.y, mousePosition.x - this.__lastDrawingPosition.x, mousePosition.y - this.__lastDrawingPosition.y, context);
             var coords = this.getCoordinates({ pos: { x: this.__lastDrawingPosition.x, y: this.__lastDrawingPosition.y }, width: mousePosition.x - this.__lastDrawingPosition.x, height: mousePosition.y - this.__lastDrawingPosition.y });
             if (!this.__selectedRect) {
                 this.__selectedRect = { pos: { x: null, y: null }, width: null, height: null };
@@ -122,8 +127,6 @@ var Cursor = (function (_super) {
             this.__selectedRect.pos.y = coords.top;
             this.__selectedRect.width = coords.right - coords.left;
             this.__selectedRect.height = coords.bottom - coords.top;
-            context.stroke();
-            context.closePath();
         }
     };
     Cursor.prototype.mouseUp = function (mousePosition, context, savingContext) {
@@ -137,10 +140,11 @@ var Cursor = (function (_super) {
             this.__dragData = null;
             this.__selectedRect = null;
         }
-        this.__isDrawing = false;
-        this.__lastDrawingPosition = null;
-        context.restore();
-        this.__isDragging = false;
+        else {
+            this.__isDrawing = false;
+            this.__lastDrawingPosition = null;
+            this.__isDragging = false;
+        }
     };
     Cursor.prototype.keyPress = function (event, context, savingContext) {
         if (this.__selectedRect && event.key === "Delete") {
@@ -176,13 +180,21 @@ var Cursor = (function (_super) {
         }
         return { left: left, right: right, top: top, bottom: bottom };
     };
+    Cursor.prototype.drawRectangle = function (x, y, w, h, context) {
+        context.beginPath();
+        context.rect(x, y, w, h);
+        context.stroke();
+        context.closePath();
+    };
     return Cursor;
 }(Tool));
 var Pencil = (function (_super) {
     __extends(Pencil, _super);
     function Pencil(styleSettings) {
+        var _this = this;
         var svg = '<svg width="20" height="20"><path d="M3 5 L 8 2 L 15 13 L 15 19 L 10 16 L 3 5 M 4 7.5 L 10 4" fill="transparent" stroke="black"/></svg>';
-        _super.call(this, "pencil", svg, ".", styleSettings);
+        _this = _super.call(this, "pencil", svg, ".", styleSettings) || this;
+        return _this;
     }
     Pencil.prototype.mouseDown = function (mousePosition, context, savingContext) {
         this.startDrawing(mousePosition, context);
@@ -209,8 +221,10 @@ var Pencil = (function (_super) {
 var Line = (function (_super) {
     __extends(Line, _super);
     function Line(styleSettings) {
+        var _this = this;
         var svg = '<svg height="20" width="20"><line x1="0" y1="0" x2="20" y2="20" style="stroke:black;stroke-width:1" /></svg>';
-        _super.call(this, "line", svg, "/", styleSettings);
+        _this = _super.call(this, "line", svg, "/", styleSettings) || this;
+        return _this;
     }
     Line.prototype.mouseDown = function (mousePosition, context, savingContext) {
         this.startDrawing(mousePosition, context);
@@ -235,8 +249,10 @@ var Line = (function (_super) {
 var Scribble = (function (_super) {
     __extends(Scribble, _super);
     function Scribble(styleSettings) {
+        var _this = this;
         var svg = '<svg width="20" height="20"><path d="M0 10 Q 5 1, 10 10 T 20 10" stroke="black" fill="transparent"/></svg>';
-        _super.call(this, "scribble", svg, "~", styleSettings);
+        _this = _super.call(this, "scribble", svg, "~", styleSettings) || this;
+        return _this;
     }
     Scribble.prototype.mouseDown = function (mousePosition, context, savingContext) {
         this.startDrawing(mousePosition);
@@ -259,8 +275,10 @@ var Scribble = (function (_super) {
 var Square = (function (_super) {
     __extends(Square, _super);
     function Square(styleSettings) {
+        var _this = this;
         var svg = '<svg width="20" height="20"><rect x="0" y="0" width="20" height="20" stroke="black" stroke-width="1" fill="none" />';
-        _super.call(this, "square", svg, "[]", styleSettings);
+        _this = _super.call(this, "square", svg, "[]", styleSettings) || this;
+        return _this;
     }
     Square.prototype.mouseDown = function (mousePosition, context, savingContext) {
         this.startDrawing(mousePosition, context);
@@ -287,8 +305,10 @@ var Square = (function (_super) {
 var Circle = (function (_super) {
     __extends(Circle, _super);
     function Circle(styleSettings) {
+        var _this = this;
         var svg = '<svg width="20" height="20"><circle cx="10" cy="10" r="9" stroke="black" stroke-width="1" fill="none" />';
-        _super.call(this, "circle", svg, "o", styleSettings);
+        _this = _super.call(this, "circle", svg, "o", styleSettings) || this;
+        return _this;
     }
     Circle.prototype.mouseDown = function (mousePosition, context, savingContext) {
         this.startDrawing(mousePosition, context);
@@ -331,7 +351,7 @@ var Circle = (function (_super) {
 var TextTool = (function (_super) {
     __extends(TextTool, _super);
     function TextTool(styleSettings) {
-        _super.call(this, "text", "", "T", styleSettings);
+        return _super.call(this, "text", "", "T", styleSettings) || this;
     }
     TextTool.prototype.mouseDown = function (mousePosition, context, savingContext) {
         if (!this.__textElem) {
@@ -368,8 +388,10 @@ var TextTool = (function (_super) {
 var Eraser = (function (_super) {
     __extends(Eraser, _super);
     function Eraser(styleSettings) {
+        var _this = this;
         var svg = '<svg width="20" height="20"><path d="M0 0 H10 L 20 20 H 10 L 0 0" fill="pink" stroke="black"/></svg>';
-        _super.call(this, "eraser", svg, "E", styleSettings);
+        _this = _super.call(this, "eraser", svg, "E", styleSettings) || this;
+        return _this;
     }
     Eraser.prototype.mouseDown = function (mousePosition, context, savingContext) {
         this.startDrawing(mousePosition);

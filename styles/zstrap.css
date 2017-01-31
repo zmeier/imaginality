@@ -78,12 +78,17 @@ body {
 }
 
 .nav-link {
+    padding: 4px;
     text-decoration: none;
     color: #99baef;
 }
 
 .nav-link:hover {
-    color: #7a94bf;
+    background-color: #7a94bf;
+}
+
+.nav-link:active {
+    background-color: gray;
 }
 
 .navbar-dark .nav-link {
@@ -91,7 +96,11 @@ body {
 }
 
 .navbar-dark .nav-link:hover {
-    color: gray;
+    background-color: gray;
+}
+
+.navbar-dark .nav-link:active {
+    background-color: dimgray;
 }
 
 .navbar-color .nav-link {
@@ -99,7 +108,11 @@ body {
 }
 
 .navbar-color .nav-link:hover {
-    color: lightblue;
+    background-color: lightblue;
+}
+
+.navbar-color .nav-link:active {
+    background-color: lightsteelblue;
 }
 
 .nav-item {
@@ -401,6 +414,8 @@ body {
 .help-card {
     margin: auto;
     padding: 16px;
+    margin-top: 16px;
+    margin-bottom: 16px;
     background-color: white;
     max-width: 800px;
 }

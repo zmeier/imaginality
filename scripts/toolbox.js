@@ -91,7 +91,7 @@ var Toolbox = (function () {
     Toolbox.prototype.updateContextWithStyles = function (context) {
         context.lineWidth = this.__styleSettings.stroke.weight;
         context.strokeStyle = this.__styleSettings.stroke.color;
-        context.fillStyle = this.__styleSettings.fillColor;
+        context.fillStyle = this.__styleSettings.fillColor.color;
         context.font = this.__styleSettings.font.size + "px " + this.__styleSettings.font.name;
     };
     Toolbox.prototype.createToolbox = function () {
@@ -198,9 +198,9 @@ var Toolbox = (function () {
         box.__context.font = box.__styleSettings.font.size + "px " + box.__styleSettings.font.name;
         this.updateContextWithStyles(this.__context);
     };
-    Toolbox.__menuDiv = null;
     return Toolbox;
 }());
+Toolbox.__menuDiv = null;
 var StyleSettings = (function () {
     function StyleSettings(fillColor, stroke, font) {
         this.fillColor = new Fill();
