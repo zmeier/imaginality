@@ -317,9 +317,9 @@ body {
 
 #drawing-canvas {
     background-color: white;
-    -webkit-box-shadow: 2px 2px 10px 0px gray;
-    -moz-box-shadow: 2px 2px 10px 0px gray;
-    box-shadow: 2px 2px 10px 0px gray;
+    -webkit-box-shadow: 2px 4px 8px 0px gray;
+    -moz-box-shadow: 2px 4px 8px 0px gray;
+    box-shadow: 2px 4px 8px 0px gray;
     margin: 4px;
     cursor: default;
 }
